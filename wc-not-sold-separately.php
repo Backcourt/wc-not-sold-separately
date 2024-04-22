@@ -53,6 +53,14 @@ class WC_Not_Sold_Separately {
 	 */
 	private static $bundled_cart_fn = array();
 
+
+	/**
+	 * Functions that get product properties.
+	 *
+	 * @var function[]
+	 */
+	private static $data_getters = array();
+
 	/**
 	 * Skip test in cart.
 	 *
@@ -79,12 +87,21 @@ class WC_Not_Sold_Separately {
 			self::$bundled_props[]   = 'bundled_item';
 			self::$bundled_props[]   = 'bundled_by';
 			self::$bundled_cart_fn[] = 'wc_pb_is_bundled_cart_item';
+			// Product Bundles 7.0+ got a product_data class specifically for tracking properties.
+			if ( class_exists( 'WC_PB_Product_Data' ) ) {
+				self::$data_getters[] = array( WC_PB_Product_Data::get_instance(), 'get' );
+			}
 		}
 
 		// Mix and Match.
 		if ( class_exists( 'WC_Mix_and_Match' ) ) {
 			self::$bundled_props[]   = 'mnm_child_item';
 			self::$bundled_cart_fn[] = 'wc_mnm_is_child_cart_item';
+
+			// Mix and Match 2.7+ got a product_data class specifically for tracking properties.
+			if ( class_exists( 'WC_MNM_Product_Data' ) ) {
+				self::$data_getters[] = array( WC_MNM_Product_Data::get_instance(), 'get' );
+			}
 		}
 
 		if ( ! empty( self::$bundled_props ) ) {
@@ -402,7 +419,7 @@ class WC_Not_Sold_Separately {
 		$is_in_bundled_context = false;
 
 		foreach ( self::$bundled_props as $prop ) {
-			if ( property_exists( $product, $prop ) ) {
+			if ( self::property_exists( $product, $prop ) ) {
 				$is_in_bundled_context = true;
 				break;
 			}
@@ -447,5 +464,39 @@ class WC_Not_Sold_Separately {
 		 */
 		return (bool) apply_filters( 'wc_not_sold_separately_is_in_bundled_cart_context', $is_in_bundled_cart_context, $cart_item );
 	}
+
+	/**
+	 * Does the property exist.
+	 * 
+	 * @since 2.4.0
+	 *
+	 * @param WC_Product   $product
+	 * @param string       $key
+	 *
+	 * @return bool
+	 */
+	private static function property_exists( $product, $key ) {
+
+		/**
+		 * Mix and Match adds a weakmap in v2.7 to track product data in order to resolve the PHP 8.2 warnings about dynamic object properties.
+		 */
+		if ( ! empty( self::$data_getters ) ) {
+			foreach ( self::$data_getters as $getter ) {
+
+				if ( is_callable( $getter ) ) {
+					$exists = ! is_null( call_user_func( $getter, $product, $key ) );
+					if ( $exists ) {
+						break;
+					}
+				}
+			}
+		} else { 
+			$exists = property_exists( $product, $key );
+		}
+
+		return $exists;
+
+	}
+
 }
 add_action( 'plugins_loaded', array( 'WC_Not_Sold_Separately', 'init' ), 20 );
