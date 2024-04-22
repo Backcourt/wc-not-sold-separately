@@ -42,14 +42,14 @@ class WC_Not_Sold_Separately {
 	/**
 	 * Props added to child products.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	private static $bundled_props = array();
 
 	/**
 	 * Functions that test child cart items.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	private static $bundled_cart_fn = array();
 
