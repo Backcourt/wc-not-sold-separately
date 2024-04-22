@@ -75,13 +75,13 @@
 				main: {
 					options: {
 						mode: 'zip',
-						archive: 'deploy/<%= pkg.version %>/<%= pkg.name %>.zip'
+						archive: 'deploy/<%= pkg.name %>-<%= pkg.version %>.zip',
 					},
 					expand: true,
 					cwd: 'build/',
-					src: ['**/*'],
-					dest: '/<%= pkg.name %>'
-				}
+					dest: '<%= pkg.name %>',
+					src: [ '**/*' ]
+				},
 			},
 
 			// # Internationalization
