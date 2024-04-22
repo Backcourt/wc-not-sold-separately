@@ -6,7 +6,7 @@
 		"url": "https://github.com/helgatheviking/wc-not-sold-separately.git"
 	},
 	"license": "GPL-3.0-or-later",
-	"version": "2.3.0",
+	"version": "2.4.0",
 	"homepage": "https://github.com/kathyisawesome/wc-not-sold-separately",
 	"main": "Gruntfile.js",
 	"devDependencies": {
