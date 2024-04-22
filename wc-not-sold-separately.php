@@ -118,6 +118,10 @@ class WC_Not_Sold_Separately {
 	 * Hooks for plugin support.
 	 */
 	public static function add_hooks() {
+
+		// Declare WC Feature compatibility.
+		add_action( 'before_woocommerce_init', array( __CLASS__, 'declare_feature_compatibility' ) );
+
 		// Admin
 		add_action( 'woocommerce_product_options_inventory_product_data', array( __CLASS__, 'product_options' ) );
 		add_action( 'woocommerce_admin_process_product_object', array( __CLASS__, 'save_meta' ) );
@@ -143,6 +147,25 @@ class WC_Not_Sold_Separately {
 		add_filter( 'woocommerce_pre_remove_cart_item_from_session', array( __CLASS__, 'remove_cart_item_from_session' ), 10, 3 );       
 	}
 
+	/*-----------------------------------------------------------------------------------*/
+	/* Core Compat */
+	/*-----------------------------------------------------------------------------------*/
+
+
+	/**
+	 * Declare compatibility with WooCommerce features.
+	 * 
+	 * @since 2.4.0
+	 */
+	public static function declare_feature_compatibility() {
+
+		if ( ! class_exists( 'Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			return;
+		}
+
+		// Declare HPOS (Custom Order tables) compatibility.
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', plugin_basename( __FILE__ ), true );
+	}
 
 	/*-----------------------------------------------------------------------------------*/
 	/* Admin Display */
