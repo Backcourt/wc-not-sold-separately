@@ -53,6 +53,12 @@ class WC_Not_Sold_Separately {
 	 */
 	private static $bundled_cart_fn = array();
 
+	/**
+	 * Functions that get product upsells.
+	 *
+	 * @var function[]
+	 */
+	private static $related_bundle_fn = array();
 
 	/**
 	 * Functions that get product properties.
@@ -95,8 +101,9 @@ class WC_Not_Sold_Separately {
 
 		// Mix and Match.
 		if ( class_exists( 'WC_Mix_and_Match' ) ) {
-			self::$bundled_props[]   = 'mnm_child_item';
-			self::$bundled_cart_fn[] = 'wc_mnm_is_child_cart_item';
+			self::$bundled_props[]     = 'mnm_child_item';
+			self::$bundled_cart_fn[]   = 'wc_mnm_is_child_cart_item';
+			self::$related_bundle_fn[] = array( WC_Data_Store::load( 'product-mix-and-match' ), 'query_containers_by_product' );
 
 			// Mix and Match 2.7+ got a product_data class specifically for tracking properties.
 			if ( class_exists( 'WC_MNM_Product_Data' ) ) {
@@ -161,7 +168,13 @@ class WC_Not_Sold_Separately {
 		add_filter( 'woocommerce_cart_product_cannot_be_purchased_message', array( __CLASS__, 'product_cannot_be_purchased_message' ), 10, 2 );  
 
 		// Catch any stray standalone products.
-		add_filter( 'woocommerce_pre_remove_cart_item_from_session', array( __CLASS__, 'remove_cart_item_from_session' ), 10, 3 );       
+		add_filter( 'woocommerce_pre_remove_cart_item_from_session', array( __CLASS__, 'remove_cart_item_from_session' ), 10, 3 );
+
+		// Display.
+		foreach ( wc_get_product_types() as $type => $title ) {
+			add_action( 'woocommerce_' . $type . '_add_to_cart', array( __CLASS__, 'display_related_bundles' ), 1 );
+		}
+
 	}
 
 	/*-----------------------------------------------------------------------------------*/
@@ -374,6 +387,30 @@ class WC_Not_Sold_Separately {
 	}
 
 	/*-----------------------------------------------------------------------------------*/
+	/* Front end display */
+	/*-----------------------------------------------------------------------------------*/
+
+	/**
+	 * Register new stock status.
+	 * 
+	 * @since 2.4.0
+	 */
+	public static function display_related_bundles() {
+		global $product;
+
+		if ( self::is_not_sold_separately( $product ) ) {
+			
+			$related_bundles = self::get_related_bundles( $product );
+
+			if ( $related_bundles ) {
+				echo '<p class="not-sold-separately">' . esc_html__( 'This product is not sold separately, but may be purchased as part of the following products:', 'wc-not-sold-separately' ) . '</p>';
+				echo do_shortcode( '[products ids="' . implode( ',', array_values($related_bundles)) . '" limit="3" orderby="rand"]' );
+			}
+		}
+
+	}
+
+	/*-----------------------------------------------------------------------------------*/
 	/* Helpers                                                                           */
 	/*-----------------------------------------------------------------------------------*/
 
@@ -498,5 +535,24 @@ class WC_Not_Sold_Separately {
 
 	}
 
+	/**
+	 * Query the related bundles.
+	 * 
+	 * @since 2.4.0
+	 * 
+	 * @param WC_Product $product
+	 * @return array
+	 */
+	private static function get_related_bundles( $product ) {
+		$related_bundles = array();
+
+		foreach( self::$related_bundle_fn as $fn ) {
+			$related_bundles = array_merge( $related_bundles, call_user_func( $fn, $product ) );
+		}
+
+		return $related_bundles;
+	
+	}
+	
 }
 add_action( 'plugins_loaded', array( 'WC_Not_Sold_Separately', 'init' ), 20 );
