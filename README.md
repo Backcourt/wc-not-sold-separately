@@ -4,7 +4,7 @@ Limit WooCommerce products to being sold only as part of a [Mix and Match](https
 
 ### Quickstart
 
-This is a developmental repo. Clone this repo and run `npm install && npm run build`   
+This is a developmental repo. Clone this repo and run `composer install && npm install && npm run build`   
 or    
 [Download latest release](https://github.com/kathyisawesome/wc-not-sold-separately/releases/latest)    
 

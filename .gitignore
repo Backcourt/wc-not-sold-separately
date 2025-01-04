@@ -1,4 +1,7 @@
 # Editors
+project.xml
+project.properties
+/nbproject/private/
 .buildpath
 .project
 .settings*
@@ -6,9 +9,13 @@ sftp-config.json
 .idea
 
 # Grunt
-node_modules/
-deploy/
+/node_modules/
+/deploy/
+/build/
 npm-debug.log
+
+# Sass
+.sass-cache/
 
 # OS X metadata
 .DS_Store
@@ -16,12 +23,32 @@ npm-debug.log
 # Windows junk
 Thumbs.db
 
+# ApiGen
+/wc-apidocs/
+
+# Unit tests
+/tmp
+
 # Logs
+/logs
 package-lock.json
 
-# Languages
+# Compiled assets
+assets/js/frontend/*.min.js
+assets/js/admin/*.min.js
+assets/css/
 languages/
+none
+
+# Editor
+.vscode/
 
 # Composer
-composer.lock
-vendor/
+/vendor/*
+/packages/*
+
+# Temporary files
+*.bak
+
+# BrianHenryIE/Strauss - PHP Namespace Renamer
+bin/strauss.phar

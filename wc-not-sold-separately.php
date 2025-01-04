@@ -1,33 +1,42 @@
 <?php
 /*
-* Plugin Name: Not Sold Separately for WooCommerce
-* Plugin URI: https://woocommerce.com/products/woocommerce-mix-and-match-products/
-* Description: Optionally restrict products to sale only as part of Mix and Match Product.
-* Version: 2.4.0
-* Author: Kathy Darling
-* Author URI: http://kathyisawesome.com/
-*
-* Text Domain: wc-not-sold-separately
-* Domain Path: /languages/
-*
-* GitHub Plugin URI: kathyisawesome/wc-not-sold-separately
-* Release Asset: true
-*
-* Requires PHP: 7.0
-* Requires at least: 5.6.0
-* Tested up to: 6.0.0
-*
-* WC requires at least: 7.0.0
-* WC tested up to: 6.6.0
-*
-* Copyright: © 2020 Kathy Darling
-* License: GNU General Public License v3.0
-* License URI: http://www.gnu.org/licenses/gpl-3.0.html
-*/
+ * Plugin Name: Not Sold Separately for WooCommerce
+ * Plugin URI: https://woocommerce.com/products/woocommerce-mix-and-match-products/
+ * Description: Optionally restrict products to sale only as part of Mix and Match Product.
+ * Version: 2.4.0
+ * Author: Kathy Darling
+ * Author URI: http://kathyisawesome.com/
+ * Text Domain: wc-not-sold-separately
+ * Domain Path: /languages/
+ *
+ * Update URI: kathyisawesome/wc-not-sold-separately
+ *
+ * Requires PHP: 8.0
+ *
+ * Requires at least: 6.6.0
+ * Tested up to: 6.7.0
+ * 
+ * WC requires at least: 9.4.0
+ * WC tested up to: 9.6.0
+ *
+ * Copyright: © 2025 Kathy Darling
+ * License: GNU General Public License v3.0
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ */
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
+
+use \Backcourt\WCNotSoldSeparately\Vendor\Fragen;
+
+ /**
+  * Add Git Updater Lite
+  */
+if ( file_exists( __DIR__ . '/packages/autoload.php' ) ) {
+	require_once __DIR__ . '/packages/autoload.php';
+	( new Fragen\Git_Updater\Lite( __FILE__ ) )->run();
 }
 
 class WC_Not_Sold_Separately {
