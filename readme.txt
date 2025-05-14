@@ -2,7 +2,7 @@
 
 Contributors: helgatheviking
 Tags: woocommerce, product, bundle, bundles, kits, composites
-Stable tag: 2.5.0
+Stable tag: 2.5.1
 Requires PHP: 8.0
 Requires at least: 6.5
 Tested up to: 6.7

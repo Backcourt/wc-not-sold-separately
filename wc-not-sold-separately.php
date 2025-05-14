@@ -3,7 +3,7 @@
  * Plugin Name: Not Sold Separately for WooCommerce
  * Plugin URI: https://woocommerce.com/products/woocommerce-mix-and-match-products/
  * Description: Optionally restrict products to sale only as part of Mix and Match Product.
- * Version: 2.5.0
+ * Version: 2.5.1
  * Author: Kathy Darling
  * Author URI: http://kathyisawesome.com/
  * Text Domain: wc-not-sold-separately
@@ -46,7 +46,7 @@ class WC_Not_Sold_Separately {
 	 *
 	 * @var string
 	 */
-	const VERSION = '2.5.0';
+	const VERSION = '2.5.1';
 
 	/**
 	 * Props added to child products.
