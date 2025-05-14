@@ -1,7 +1,7 @@
 {
-    "name": "kathyisawesome/wc-not-sold-separately",
+    "name": "backcourt/wc-not-sold-separately",
     "description": "Optionally restrict products to sale only as part of Mix and Match Product.",
-    "homepage": "https://github.com/kathyisawesome/wc-not-sold-separately",
+    "homepage": "https://github.com/backcourt/wc-not-sold-separately",
     "type": "wordpress-plugin",
     "license": "GPL-3.0-or-later",
     "authors": [
@@ -11,8 +11,8 @@
         }
     ],
     "support": {
-        "source": "https://github.com/kathyisawesome/wc-not-sold-separately",
-        "issues": "https://github.com/kathyisawesome/wc-not-sold-separately/issues"
+        "source": "https://github.com/backcourt/wc-not-sold-separately",
+        "issues": "https://github.com/backcourt/wc-not-sold-separately/issues"
     },
     "require": {
         "afragen/git-updater-lite": "^1"
@@ -24,7 +24,7 @@
     },
     "scripts": {
         "makepot-audit": [
-            "wp --allow-root i18n make-pot . languages/wc-not-sold-separately.pot --slug=wc-not-sold-separately --exclude=\".github,.wordpress-org,build,deploy,node_modules,packages,vendor\" --headers='{\"Report-Msgid-Bugs-To\":\"https://github.com/kathyisawesome/wc-not-sold-separately/issues/new\"}'"
+            "wp --allow-root i18n make-pot . languages/wc-not-sold-separately.pot --slug=wc-not-sold-separately --exclude=\".github,.wordpress-org,build,deploy,node_modules,packages,vendor\" --headers='{\"Report-Msgid-Bugs-To\":\"https://github.com/backcourt/wc-not-sold-separately/issues/new\"}'"
         ],
         "makepot": [
             "@makepot-audit --skip-audit"

@@ -7,7 +7,7 @@
 	},
 	"license": "GPL-3.0-or-later",
 	"version": "2.5.0",
-	"homepage": "https://github.com/kathyisawesome/wc-not-sold-separately",
+	"homepage": "https://github.com/backcourt/wc-not-sold-separately",
 	"main": "Gruntfile.js",
 	"devDependencies": {
 		"grunt": "^1.6.1",
