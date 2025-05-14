@@ -104,7 +104,7 @@ class WC_Not_Sold_Separately {
 			self::$bundled_cart_fn[] = 'wc_pb_is_bundled_cart_item';
 			// Product Bundles 7.0+ got a product_data class specifically for tracking properties.
 			if ( class_exists( 'WC_PB_Product_Data' ) ) {
-				self::$data_getters[] = array( WC_PB_Product_Data::get_instance(), 'get' );
+				self::$data_getters[] = array( WC_PB_Product_Data::instance(), 'get' );
 			}
 		}
 
