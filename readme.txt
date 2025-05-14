@@ -44,6 +44,8 @@ However, the product can still be purchased as part of a container:
 
 == Changelog ==
 
+= 2.5.0  =
+* New: Automatic updates
 
 = 2.0.0  =
 * Fix: Update for Mix and Match 2.0 Compatibility
