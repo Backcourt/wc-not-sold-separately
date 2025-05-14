@@ -9,7 +9,7 @@
  * Text Domain: wc-not-sold-separately
  * Domain Path: /languages/
  *
- * Update URI: backcourt/wc-not-sold-separately
+ * Update URI: https://www.backcourt.io/
  *
  * Requires PHP: 8.0
  *
