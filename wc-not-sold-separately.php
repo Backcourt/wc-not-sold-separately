@@ -29,11 +29,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use \Backcourt\WCNotSoldSeparately\Vendor\Fragen;
+use Backcourt\WCNotSoldSeparately\Vendor\Fragen;
 
- /**
-  * Add Git Updater Lite
-  */
+/**
+ * Add Git Updater Lite
+ */
 if ( file_exists( __DIR__ . '/packages/autoload.php' ) ) {
 	require_once __DIR__ . '/packages/autoload.php';
 	( new Fragen\Git_Updater\Lite( __FILE__ ) )->run();
@@ -417,7 +417,6 @@ class WC_Not_Sold_Separately {
 				echo do_shortcode( '[products ids="' . implode( ',', array_values($related_bundles)) . '" limit="3" orderby="rand"]' );
 			}
 		}
-
 	}
 
 	/*-----------------------------------------------------------------------------------*/
@@ -542,7 +541,6 @@ class WC_Not_Sold_Separately {
 		}
 
 		return $exists;
-
 	}
 
 	/**
@@ -556,13 +554,11 @@ class WC_Not_Sold_Separately {
 	private static function get_related_bundles( $product ) {
 		$related_bundles = array();
 
-		foreach( self::$related_bundle_fn as $fn ) {
+		foreach ( self::$related_bundle_fn as $fn ) {
 			$related_bundles = array_merge( $related_bundles, call_user_func( $fn, $product ) );
 		}
 
 		return $related_bundles;
-	
 	}
-	
 }
 add_action( 'plugins_loaded', array( 'WC_Not_Sold_Separately', 'init' ), 20 );
