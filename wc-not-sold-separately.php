@@ -180,10 +180,11 @@ class WC_Not_Sold_Separately {
 		add_filter( 'woocommerce_pre_remove_cart_item_from_session', array( __CLASS__, 'remove_cart_item_from_session' ), 10, 3 );
 
 		// Display.
-		foreach ( wc_get_product_types() as $type => $title ) {
-			add_action( 'woocommerce_' . $type . '_add_to_cart', array( __CLASS__, 'display_related_bundles' ), 1 );
-		}
-
+		add_action( 'init', function() {
+			foreach ( wc_get_product_types() as $type => $title ) {
+				add_action( 'woocommerce_' . $type . '_add_to_cart', array( __CLASS__, 'display_related_bundles' ), 1 );
+			}
+		} );
 	}
 
 	/*-----------------------------------------------------------------------------------*/
